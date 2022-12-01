@@ -23,5 +23,3 @@
         (reverse)
         (take 3)
         (reduce +))))
-
-(b)
