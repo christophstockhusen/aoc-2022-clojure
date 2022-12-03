@@ -9,10 +9,10 @@ wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
 ttgJtRGJQctTZtZT
 CrZsJsPPZsGzwwsLwLmpwMDw")
 
-(deftest XXX-a-test
+(deftest rucksack-reorganization-a-test
   (testing "Day 03 - Part 1"
     (is (= 157 (a input)))))
 
-(deftest XXX-b-test
+(deftest rucksack-reorganization-b-test
   (testing "Day 03 - Part 2"
     (is (= 70 (b input)))))
