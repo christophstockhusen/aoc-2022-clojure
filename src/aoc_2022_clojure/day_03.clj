@@ -13,23 +13,19 @@
       (- c 96)
       (+ 26 (- c 64)))))
 
+(defn main [input partitioning-fn]
+  (->> (parse-input input)
+       (partitioning-fn)
+       (map #(map set %))
+       (map #(apply set/intersection %))
+       (map first)
+       (map char-value)
+       (reduce +)))
+
 (defn a
   ([] (a (slurp (io/resource "03.txt"))))
-  ([input] 
-   (->> (parse-input input)
-        (map split-half)
-        (map #(set/intersection (set (first %)) (set (second %))))
-        (map first)
-        (map char-value)
-        (reduce +))))
+  ([input] (main input (partial map split-half))))
 
 (defn b
   ([] (b (slurp (io/resource "03.txt"))))
-  ([input]
-   (->> (parse-input input)
-        (partition 3)
-        (map #(map set %))
-        (map #(apply set/intersection %))
-        (map first)
-        (map char-value)
-        (reduce +))))
+  ([input] (main input (partial partition 3))))
