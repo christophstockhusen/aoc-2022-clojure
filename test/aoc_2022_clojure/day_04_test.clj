@@ -9,10 +9,10 @@
 6-6,4-6
 2-6,4-8")
 
-(deftest XXX-a-test
+(deftest camp-cleanup-a-test
   (testing "Day 04 - Part 1"
     (is (= 2 (a input)))))
 
-(deftest XXX-b-test
+(deftest camp-cleanup-b-test
   (testing "Day 04 - Part 2"
     (is (= 4 (b input)))))
