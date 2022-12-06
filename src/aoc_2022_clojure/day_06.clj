@@ -2,12 +2,9 @@
   (:require [clojure.java.io :as io]))
 
 (defn find-marker-pos [n input]
-  (->> (seq input)
-       (partition n 1)
-       (map #(count (set %)))
-       (map vector (drop n (range)))
-       (filter #(= n (second %)))
-       (first)
+  (->> (partition n 1 (seq input))
+       (map (comp count set))
+       (keep-indexed #(if (= n %2) (+ n %1)))
        (first)))
 
 (defn main 
