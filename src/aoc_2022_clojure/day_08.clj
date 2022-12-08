@@ -33,29 +33,27 @@
 (defn prev-coordinates [size direction [idx1 idx2]]
   (coordinates size direction [(dec idx1) idx2]))
 
+(defn scan-along-line [size direction trees idx1 heights idx2]
+  (let [cs (coordinates size direction [idx1 idx2])
+        prev-cs (prev-coordinates size direction [idx1 idx2])
+        tmp (->
+             (reduce 
+              (fn [m h]
+                (if-let [prev-height-dist (get-in heights [prev-cs direction h])]
+                  (assoc-in m [cs direction h] (inc prev-height-dist))
+                  m))
+              heights
+              (range 10)))] 
+    (-> (if-let [prev-height (get trees prev-cs)]
+          (assoc-in tmp [cs direction prev-height] 1)
+          tmp)
+        (assoc-in [cs :height] (get trees cs)))))
+
+(defn scan-next-line [size direction trees heights idx1]
+  (reduce (partial scan-along-line size direction trees idx1) heights (range size)))
+
 (defn scan-from-direction [{trees :trees size :size} direction]
-  (->>
-   (range size) 
-   (reduce ;; Move scanline along first direction
-    (fn [heights idx1]
-      (->>
-       (reduce ;; Collect results along scanline
-        (fn [heights idx2]
-          (let [cs (coordinates size direction [idx1 idx2])
-                prev-cs (prev-coordinates size direction [idx1 idx2])
-                tmp (->
-                     (reduce ;; Set height dists for all heights
-                      (fn [m h]
-                        (if-let [prev-height-dist (get-in heights [prev-cs direction h])]
-                          (assoc-in m [cs direction h] (inc prev-height-dist))
-                          m))
-                      heights
-                      (range 10)))]
-            (-> (if-let [prev-height (get trees prev-cs)]
-                  (assoc-in tmp [cs direction prev-height] 1)
-                  tmp)
-                (assoc-in [cs :height] (get trees cs)))))
-        heights (range size)))) {})))
+  (reduce (partial scan-next-line size direction trees) {} (range size)))
 
 (defn add-heights [trees]
   (->> [:north :east :south :west]
