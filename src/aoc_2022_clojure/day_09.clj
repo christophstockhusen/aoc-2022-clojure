@@ -40,10 +40,9 @@
                (dec steps))))))
 
 (defn simulate [length lines]
-  (reduce 
-   (fn [state cmd] (simulate-step state cmd))
-   {:rope (vec (repeat length [0 0])) :visited #{[0 0]}}
-   lines))
+  (reduce (fn [state cmd] (simulate-step state cmd))
+          {:rope (vec (repeat length [0 0])) :visited #{[0 0]}}
+          lines))
 
 (defn main [input length]
   (->> (parse-input input)
