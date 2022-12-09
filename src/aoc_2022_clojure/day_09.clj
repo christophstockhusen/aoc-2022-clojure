@@ -12,7 +12,7 @@
                 "R" [1 0]
                 "D" [0 -1]
                 "L" [-1 0]}]
-    (vec (map + xy (get deltas direction)))))
+    (mapv + xy (get deltas direction))))
 
 (defn too-distant? [v w]
   (< 1 (reduce max (map #(abs (- %1 %2)) v w))))
@@ -24,7 +24,7 @@
   (let [last-new (peek start-new)
         compared (compare-positions last-new next-knot)]
     (if (too-distant? last-new next-knot)
-      (conj start-new (vec (map + next-knot compared)))
+      (conj start-new (mapv + next-knot compared))
       (conj start-new next-knot))))
 
 (defn simulate-step [state [direction steps]]
