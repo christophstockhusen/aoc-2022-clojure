@@ -2,20 +2,12 @@
   (:require [clojure.java.io :as io]
             [clojure.string :as str]))
 
-(defn parse-line [line]
-  (if-let [digits (re-find #"-?\d+" line)]
-    {:cmd :add :value (parse-long digits)}
-    {:cmd :noop}))
-
-(defn parse-input [input]
-  (map parse-line (str/split-lines input)))
-
 (defn add-cmd [{register :register cycles :cycles} cmd]
-  (if (= :noop (:cmd cmd))
+  (if-let [digits (re-find #"-?\d+" cmd)]
+    {:register (+ (parse-long digits) register)
+     :cycles (into cycles (repeat 2 register))}
     {:register register 
-     :cycles (conj cycles register)}
-    {:register (+ (:value cmd) register) 
-     :cycles (into cycles (repeat 2 register))}))
+     :cycles (conj cycles register)})) 
 
 (defn cycle-values [program]
   (:cycles (reduce add-cmd {:register 1 :cycles []} program)))
@@ -27,12 +19,10 @@
 
 (defn a
   ([] (a (slurp (io/resource "10.txt"))))
-  ([input] (->> (parse-input input)
-                (cycle-values)
-                (signal-values))))
+  ([input] (signal-values (cycle-values (str/split-lines input)))))
 
 (defn crt [cycles]
-  (->> (take 240 (cycle (range 0 40)))
+  (->> (cycle (range 0 40))
        (map vector cycles)
        (map (fn [[reg pos]]
               (if (<= (dec reg) pos (inc reg))
@@ -44,6 +34,6 @@
 
 (defn b
   ([] (b (slurp (io/resource "10.txt"))))
-  ([input] (let [image (crt (cycle-values (parse-input input)))]
+  ([input] (let [image (crt (cycle-values (str/split-lines input)))]
              (println image)
              image)))
