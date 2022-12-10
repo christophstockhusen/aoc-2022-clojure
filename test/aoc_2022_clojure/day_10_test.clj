@@ -150,7 +150,7 @@ noop
 noop")
 
 (deftest cathode-ray-tube-a-test
-  (testing "Day 9 - Part 1"
+  (testing "Day 10 - Part 1"
     (is (= 13140 (a input)))))
 
 (def image "##..##..##..##..##..##..##..##..##..##..
@@ -161,5 +161,5 @@ noop")
 #######.......#######.......#######.....")
 
 (deftest cathode-ray-tube-b-test
-  (testing "Day 9 - Part 2"
+  (testing "Day 10 - Part 2"
     (is (= image (b input)))))
