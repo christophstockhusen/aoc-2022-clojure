@@ -6,11 +6,11 @@
   (let [operator (case (re-find #"[+*]" line)
                    "+" :addition
                    "*" :multiplication)
-        operands (re-seq #"old|\d+" line)
+        [op1 op2] (re-seq #"old|\d+" line)
         parse-operand (fn [x] (if (= "old" x) :old (parse-long x)))]
     {:operator operator
-     :op1 (parse-operand (first operands))
-     :op2 (parse-operand (second operands))}))
+     :op1 (parse-operand op1)
+     :op2 (parse-operand op2)}))
 
 (defn parse-monkey [s]
   (let [[no items operation divisor true-case false-case] (str/split-lines s)]
