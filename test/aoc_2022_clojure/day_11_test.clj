@@ -34,5 +34,5 @@ Monkey 3:
     (is (= 10605 (a input)))))
 
 (deftest monkey-in-the-middle-b-test
-  (testing "Day 10 - Part 2"
+  (testing "Day 11 - Part 2"
     (is (= 2713310158 (b input)))))
