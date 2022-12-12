@@ -3,5 +3,6 @@
   :url "https://github.com/christophstockhusen/aoc-2022-clojure"
   :license {:name "MIT"
             :url "https://mit-license.org/"}
-  :dependencies [[org.clojure/clojure "1.11.1"]]
+  :dependencies [[org.clojure/clojure "1.11.1"]
+                 [org.clojure/data.priority-map "1.1.0"]]
   :repl-options {:init-ns aoc-2022-clojure.core})
