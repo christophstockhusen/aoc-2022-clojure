@@ -1,9 +1,10 @@
 (ns aoc-2022-clojure.day-13
-  (:require [clojure.java.io :as io]
+  (:require [clojure.edn :as edn]
+            [clojure.java.io :as io]
             [clojure.string :as str]))
 
 (defn parse-input [input]
-  (map read-string (str/split-lines (str/replace input #"\n\n" "\n"))))
+  (map edn/read-string (str/split-lines (str/replace input #"\n\n" "\n"))))
 
 (defn compare-packets [packet-1 packet-2]
   (cond (or (nil? packet-1) (nil? packet-2))
