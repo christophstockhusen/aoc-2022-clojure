@@ -37,8 +37,8 @@
 
 (defn b
   ([] (b (slurp (io/resource "13.txt"))))
-  ([input] (->> (concat (parse-input input) [[[2]] [[6]]])
-                (sort compare-packets)
-                (keep-indexed #(if (some? (#{[[2]] [[6]]} %2))
-                                 (inc %1)))
-                (reduce *))))
+  ([input] (let [divider-packets #{[[2]] [[6]]}]
+             (->> (concat (parse-input input) divider-packets)
+                  (sort compare-packets)
+                  (keep-indexed #(if (contains? divider-packets %2) (inc %1)))
+                  (reduce *)))))
