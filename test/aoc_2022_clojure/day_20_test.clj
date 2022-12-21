@@ -1,5 +1,6 @@
 (ns aoc-2022-clojure.day-20-test 
-  (:require [clojure.test :refer [deftest is testing]]))
+  (:require [aoc-2022-clojure.day-20 :refer [a b]]
+            [clojure.test :refer [deftest is testing]]))
 
 (def input "1
 2
@@ -15,4 +16,4 @@
 
 (deftest grove-positioning-system-b-test
   (testing "Day 20 - Part 2"
-    (is (= 1623178306 (a input)))))
+    (is (= 1623178306 (b input)))))
