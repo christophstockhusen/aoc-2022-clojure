@@ -23,12 +23,12 @@
 
 (defn insert [vs pos val]
   (let [[before after] (split-at pos vs)]
-    (vec (concat before [val] after))))
+    (into [] cat [before [val] after])))
 
 (defn delete [vs pos]
   (let [before (subvec vs 0 pos)
         after (subvec vs (inc pos))]
-    (vec (concat before after))))
+    (into [] cat [before after])))
 
 (defn move [mixed number]
   (let [n (:value number)
